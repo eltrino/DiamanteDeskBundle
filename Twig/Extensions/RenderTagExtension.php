@@ -16,10 +16,16 @@
 namespace Diamante\DeskBundle\Twig\Extensions;
 
 use Diamante\DeskBundle\Model\Ticket\TicketRepository;
+use Diamante\DeskBundle\Model\Shared\Repository;
 use Oro\Bundle\TagBundle\Entity\TagManager;
 
 class RenderTagExtension extends \Twig_Extension
 {
+    /**
+     * @var Repository
+     */
+    private $branchRepository;
+
     /**
      * @var TicketRepository
      */
@@ -33,11 +39,17 @@ class RenderTagExtension extends \Twig_Extension
     /**
      * @param TicketRepository $ticketRepository
      * @param TagManager       $tagManager
+     * @param Repository       $branchRepository
      */
-    public function __construct(TicketRepository $ticketRepository, TagManager $tagManager)
+    public function __construct(
+        TicketRepository $ticketRepository,
+        TagManager       $tagManager,
+        Repository       $branchRepository
+    )
     {
         $this->ticketRepository = $ticketRepository;
-        $this->tagManager = $tagManager;
+        $this->tagManager       = $tagManager;
+        $this->branchRepository = $branchRepository;
     }
 
     /**
@@ -58,7 +70,15 @@ class RenderTagExtension extends \Twig_Extension
         return [
              new \Twig_SimpleFunction(
                 'render_ticket_tag',
-                [$this, 'renderTag'],
+                [$this, 'renderTicketTag'],
+                array(
+                    'is_safe'           => array('html'),
+                    'needs_environment' => true
+                )
+            ),
+            new \Twig_SimpleFunction(
+                'render_branch_tag',
+                [$this, 'renderBranchTag'],
                 array(
                     'is_safe'           => array('html'),
                     'needs_environment' => true
@@ -67,7 +87,7 @@ class RenderTagExtension extends \Twig_Extension
         ];
     }
 
-    public function renderTag(\Twig_Environment $twig, $ticketId)
+    public function renderTicketTag(\Twig_Environment $twig, $ticketId)
     {
         /** @var \Diamante\DeskBundle\Entity\Ticket $ticket */
         $ticket = $this->ticketRepository->get($ticketId);
@@ -76,6 +96,19 @@ class RenderTagExtension extends \Twig_Extension
         return $twig->render(
             'DiamanteDeskBundle:Ticket/Datagrid/Property:tag.html.twig',
             ['tags' => $ticket->getTags()->getValues()]
+        );
+    }
+
+    public function renderBranchTag(\Twig_Environment $twig, $branchId)
+    {
+
+        /** @var \Diamante\DeskBundle\Entity\Ticket $ticket */
+        $branch = $this->branchRepository->get($branchId);
+        $this->tagManager->loadTagging($branch);
+
+        return $twig->render(
+            'DiamanteDeskBundle:Branch/Datagrid/Property:tag.html.twig',
+            ['tags' => $branch->getTags()->getValues()]
         );
     }
 }

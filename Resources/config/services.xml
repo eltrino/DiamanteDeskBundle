@@ -102,6 +102,7 @@
         <service id="diamante.render.tag.twig.extension" class="%diamante.render.tag.twig.extension.class%">
             <argument type="service" id="diamante.ticket.repository"/>
             <argument type="service" id="oro_tag.tag.manager"/>
+            <argument type="service" id="diamante.branch.repository"/>
             <tag name="twig.extension"/>
         </service>
 

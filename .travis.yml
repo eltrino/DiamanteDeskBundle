@@ -25,3 +25,9 @@ before_install:
 
 install:
   - composer install --prefer-source --profile
+
+script: phpunit --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

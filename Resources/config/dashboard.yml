@@ -35,6 +35,13 @@ oro_dashboard_config:
             description: Check how many tickets were opened and closed per day for a given time period.
             icon:       bundles/orodashboard/img/quick_launchpad.png
 
+        my_tickets:
+            label:      My Tickets
+            route:      diamante_my_tickets_widget
+            route_parameters: { id: my_tickets }
+            description: Show "my tickets" grid on dasboard.
+            icon:       bundles/orodashboard/img/quick_launchpad.png
+
     dashboards:
         diamante_support:
             twig: OroDashboardBundle:Index:default.html.twig

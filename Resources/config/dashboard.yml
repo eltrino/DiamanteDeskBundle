@@ -1,9 +1,9 @@
 oro_dashboard_config:
     widgets:
-        tickets_by_priority:
+        tickets_by_priority_widget:
             label:      Tickets By priority
             route:      diamante_report_widget
-            route_parameters: { id: tickets_by_priority }
+            route_parameters: { id: tickets_by_priority_widget }
             description: See the full picture of requests according to their priorities and focus on core issues.
             icon:       bundles/orodashboard/img/quick_launchpad.png
 
@@ -33,6 +33,13 @@ oro_dashboard_config:
             route:      diamante_report_widget
             route_parameters: { id: tickets_timeline }
             description: Check how many tickets were opened and closed per day for a given time period.
+            icon:       bundles/orodashboard/img/quick_launchpad.png
+
+        my_tickets:
+            label:      My Tickets
+            route:      diamante_my_tickets_widget
+            route_parameters: { id: my_tickets }
+            description: Show "my tickets" grid on dasboard.
             icon:       bundles/orodashboard/img/quick_launchpad.png
 
     dashboards:

@@ -89,6 +89,35 @@ class ReportController extends Controller
         }
     }
 
+
+    /**
+     * @Route(
+     *      "/ticketsWidget/{id}",
+     *      name="diamante_my_tickets_widget",
+     * )
+     *
+     *
+     * @param string $id
+     * @return array
+     */
+    public function ticketListAction($id)
+    {
+        try {
+            $manager = $this->get('oro_dashboard.widget_configs');
+
+            $params = $manager->getWidgetAttributesForTwig($id);
+
+            return $this->render(
+                'DiamanteDeskBundle:Dashboard:ticketWidget.html.twig',
+                $params
+            );
+
+        } catch (\Exception $e) {
+            $this->handleException($e);
+            throw $this->createNotFoundException($e->getMessage(), $e);
+        };
+    }
+
     /**
      * @param $id
      * @return string

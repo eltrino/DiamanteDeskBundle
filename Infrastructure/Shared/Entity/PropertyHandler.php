@@ -13,19 +13,26 @@
  * to license@eltrino.com so we can send you a copy immediately.
  */
 
-namespace Diamante\DeskBundle\Infrastructure\Comment;
+namespace Diamante\DeskBundle\Infrastructure\Shared\Entity;
 
-use Diamante\DeskBundle\Infrastructure\Shared\Entity\AbstractPropertyHandler;
+use Diamante\AutomationBundle\Rule\Fact\AbstractFact;
 
-class CommentPropertyHandler extends AbstractPropertyHandler
+interface PropertyHandler
 {
-    const COMMENT_TYPE = 'comment';
-
     /**
      * @return string
      */
-    public function getName()
-    {
-        return static::COMMENT_TYPE;
-    }
+    public function getName();
+
+    /**
+     * @param AbstractFact $fact
+     *
+     * @return mixed
+     */
+    public function extractPropertyValue(AbstractFact $fact);
+
+    /**
+     * @param Context $context
+     */
+    public function setContext(Context $context);
 }

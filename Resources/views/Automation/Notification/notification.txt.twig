@@ -1,0 +1,24 @@
+{{ delimiter }}
+
+Ticket was created by {{ user }}
+
+You can view this ticket using following link {{ render_ticket_url(ticketKey, recipient) }}
+
+{% if changes is defined %}
+    {% for key, value in changes %}
+        - {{ key|capitalize }}: {{ attribute(value, 'new')|capitalize }}
+    {% endfor %}
+{% endif %}
+
+{% if attachments is defined and attachments is not empty %}
+    Attachments:
+    {% for key, value in attachments %}
+        - {{ value }}
+    {% endfor %}
+{% endif %}
+
+Thank you.
+
+--
+{{ organization }}
+

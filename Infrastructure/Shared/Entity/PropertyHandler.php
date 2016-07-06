@@ -12,30 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@eltrino.com so we can send you a copy immediately.
  */
-namespace Diamante\DeskBundle\Api\Command\MassActionCommands;
 
-use Symfony\Component\Validator\Constraints as Assert;
+namespace Diamante\DeskBundle\Infrastructure\Shared\Entity;
 
-class MassChangeStatusCommand
+use Diamante\AutomationBundle\Rule\Fact\AbstractFact;
+
+interface PropertyHandler
 {
     /**
-     * @var string
-     * @Assert\NotNull()
-     * @Assert\Type(type="string")
+     * @return string
      */
-    public $ids;
+    public function getName();
 
     /**
-     * @var integer
-     * @Assert\NotNull()
-     * @Assert\Type(type="integer")
+     * @param AbstractFact $fact
+     *
+     * @return mixed
      */
-    public $inset;
+    public function extractPropertyValue(AbstractFact $fact);
 
     /**
-     * @Assert\NotNull()
-     * @Assert\Type(type="string")
-     * @var string
+     * @param Context $context
      */
-    public $status;
+    public function setContext(Context $context);
 }

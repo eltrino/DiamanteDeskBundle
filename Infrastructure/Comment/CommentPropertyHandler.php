@@ -12,30 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@eltrino.com so we can send you a copy immediately.
  */
-namespace Diamante\DeskBundle\Api\Command\MassActionCommands;
 
-use Symfony\Component\Validator\Constraints as Assert;
+namespace Diamante\DeskBundle\Infrastructure\Comment;
 
-class MassChangeStatusCommand
+use Diamante\DeskBundle\Infrastructure\Shared\Entity\AbstractPropertyHandler;
+
+class CommentPropertyHandler extends AbstractPropertyHandler
 {
-    /**
-     * @var string
-     * @Assert\NotNull()
-     * @Assert\Type(type="string")
-     */
-    public $ids;
+    const COMMENT_TYPE = 'comment';
 
     /**
-     * @var integer
-     * @Assert\NotNull()
-     * @Assert\Type(type="integer")
+     * @return string
      */
-    public $inset;
-
-    /**
-     * @Assert\NotNull()
-     * @Assert\Type(type="string")
-     * @var string
-     */
-    public $status;
+    public function getName()
+    {
+        return static::COMMENT_TYPE;
+    }
 }
